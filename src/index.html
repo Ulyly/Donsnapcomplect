@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донснабкомплект</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 50%, #9333EA 100%);
+            /* padding: 12px 20px; */
+            height: 7%;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .contract-dropdown {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 280px;
+            flex: 1;
+            max-width: 500px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contract-dropdown:hover {
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .contract-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1f2937;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .new-contract-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .new-contract-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .company-name {
+            font-weight: 600;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        .nav-container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #8B5CF6, #A855F7);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 60px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-btn:hover:before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Service Form */
+        .service-form-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-form-container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5CF6, #A855F7, #9333EA);
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1f2937;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .service-dropdown-container {
+            position: relative;
+        }
+
+        .service-dropdown {
+            width: 100%;
+            max-width: 400px;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .service-dropdown:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .address-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            max-width: 400px;
+        }
+
+        .address-input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .address-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .address-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .map-btn {
+            background: linear-gradient(135deg, #8B5CF6, #A855F7);
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+        }
+
+        .map-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .map-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Service List */
+        .service-list {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f3f4f6;
+        }
+
+        .service-item {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #374151;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(135deg, #8B5CF6, #A855F7);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-color: rgba(139, 92, 246, 0.2);
+            transform: translateX(4px);
+        }
+
+        .service-item:hover:before {
+            transform: scaleY(1);
+        }
+
+        .service-item.selected {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border-color: #8B5CF6;
+            color: #7C3AED;
+        }
+
+        .service-item.selected:before {
+            transform: scaleY(1);
+        }
+
+        /* Back button */
+        .back-btn {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .contract-dropdown {
+                min-width: auto;
+                width: 100%;
+                max-width: none;
+            }
+
+            .contract-text {
+                font-size: 12px;
+            }
+
+            .new-contract-btn {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+
+            .user-section {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .company-name {
+                font-size: 14px;
+            }
+
+            .nav-container {
+                padding: 15px;
+            }
+
+            .service-nav {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 14px 16px;
+                font-size: 13px;
+                min-height: 50px;
+            }
+
+            .service-form-container {
+                padding: 20px;
+            }
+
+            .form-label {
+                font-size: 14px;
+            }
+
+            .service-dropdown,
+            .address-input {
+                font-size: 13px;
+                padding: 12px;
+            }
+
+            .address-container {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: none;
+            }
+
+            .map-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .service-item {
+                font-size: 13px;
+                padding: 14px 16px;
+            }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .header-content {
+                gap: 15px;
+            }
+
+            .contract-dropdown {
+                max-width: 400px;
+            }
+
+            .service-nav {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-btn {
+                font-size: 13px;
+            }
+        }
+
+        /* Large Desktop */
+        @media (min-width: 1200px) {
+            .service-nav {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .service-form-container {
+                padding: 40px;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive utilities */
+        .mobile-only {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-only {
+                display: block;
+            }
+            .desktop-only {
+                display: none;
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .container > div {
+            display: none;
+        }
+        .container > div.active {
+            display: block;
+        }
+        .container {
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+        }
+
+        /* Новые стили для полноэкранного Service Selection */
+        .service-selection {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 0;
+        }
+
+        .service-selection.fullscreen {
+        max-width: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        }
+
+        /* Адаптация формы внутри */
+        .service-selection .service-form {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        }
+
+        /* Для мобильных устройств */
+        @media (max-width: 768px) {
+        .service-selection .service-form {
+            padding: 10px;
+        }
+        }
+        .service-selection {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .service-selection[style*="display: block"] {
+            opacity: 1;
+        }
+        .service-header {
+            position: absolute;
+            width: 1920px;
+            height: 75px;
+            left: 0px;
+            top: 0px;
+            background: #725AB8;
+        }
+        
+        .contract-dropdown {
+            position: absolute;
+            width: 672px;
+            height: 45px;
+            left: 22px;
+            top: 15px;
+            background: #FFFFFF;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+        }
+        
+        .new-contract-btn {
+            box-sizing: border-box;
+            position: absolute;
+            width: 265px;
+            height: 45px;
+            left: calc(50% - 265px/2 - 108.5px);
+            top: calc(50% - 45px/2);
+            border: 1px solid #5D5D5D;
+            border-radius: 10px;
+            background: transparent;
+            color: #FFFFFF;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .user-section {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .company-name {
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+            color: #FFFFFF;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .service-nav {
+            position: absolute;
+            width: 1837px;
+            height: 131px;
+            left: 49px;
+            top: 102px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-btn {
+            width: 340px;
+            height: 75px;
+            background: #725AB8;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            border: none;
+            color: #FFFFFF;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .nav-btn.active {
+            background: #5d4a9b;
+        }
+        
+        .service-form-container {
+            box-sizing: border-box;
+            position: absolute;
+            width: 1760px;
+            height: 699px;
+            left: 49px;
+            top: 279px;
+            background: #FFFFFF;
+            border: 1px solid #000000;
+            padding: 20px;
+        }
+        .logout-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        }
+
+        .logout-btn svg {
+        transition: transform 0.2s ease;
+        }
+
+        .logout-btn:hover svg {
+        transform: scale(1.1);
+        }
+        .form-label {
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .service-dropdown {
+            box-sizing: border-box;
+            width: 472px;
+            height: 48px;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .address-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .address-input {
+            box-sizing: border-box;
+            width: 370px;
+            height: 48px;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            padding: 0 15px;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .address-input::placeholder {
+            color: #7C7C7C;
+        }
+        
+        .map-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .service-list {
+            margin-top: 30px;
+        }
+        
+        .service-item {
+            font-family: 'Montserrat';
+            font-weight: 600;
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <link rel="preload" href="./assets/logo.svg" as="image">
+
+    <div class="container" id="mainContainer">
+        <!-- Login Form -->
+        <div id="loginForm" class="login-form">
+            <img src="./assets/logo.svg" alt="Логотип" class="logo">
+
+            <div class="login-title">Вход в систему</div>
+            <div id="error-message" style="display:none; color: red; margin-top: 10px;"></div>
+
+            <div id="loginMessagesContainer" style="margin-bottom: 15px;"></div>
+            
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="ИНН/e-mail/Номер телефона" id="loginInput">
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Пароль" id="passwordInput">
+            </div>
+            
+            <button class="login-btn">Войти</button>
+            <!-- onclick="login()" -->
+            
+            <div class="links">
+                <span class="link register-link">Регистрация</span>
+                <!-- onclick="showRegistration()" -->
+                <span class="link">Забыли пароль</span>
+                <!-- onclick="forgotPassword()" -->
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registrationForm" class="registration-form">
+            <img src="./assets/logo.svg" alt="Логотип" class="logo">
+            
+            <div class="login-title" style="color: #01AA2C;">Регистрация абонента ТКО</div>
+            <div id="error-message" style="display:none; color: red; margin-top: 10px;"></div>
+
+            <div id="registerMessagesContainer" style="margin-bottom: 15px;"></div>
+            <div class="inn-kpp-group">
+                <div class="form-group" style="position: relative;">
+                <input type="text" class="form-input" placeholder="Введите ИНН" id="innInput" style="padding-right: 50px;">
+                    <button id="searchBtn" class="search-btn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: transparent; border: none; cursor: pointer; padding: 8px; color: #01AA2C; font-size: 20px;">
+                        <span class="search-icon">🔍</span>
+                        <span class="search-text">Поиск</span>
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Введите КПП" id="kppInput">
+                </div>
+            </div>
+
+            
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Название организации" id="orgNameInput">
+                <small style="color: #DC2626; font-size: 12px;">Уточните название организации</small>
+            </div>
+            <div class="contact-group">
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Введите email" id="emailInput">
+                </div>
+                
+                <div class="form-group">
+                    <input type="tel" class="form-input" placeholder="Введите номер телефона" id="phoneInput">
+                </div>
+            </div>
+
+            <div class="password-group">
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="Придумайте пароль" id="regPasswordInput">
+                </div>
+                            
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="Повторите пароль" id="regConfirmPasswordInput">
+                    <small style="color: #DC2626; font-size: 12px; display: none;" id="passwordError">Пароли не совпадают</small>
+                </div>
+            </div>
+            
+            <div class="captcha-container">
+                <input type="text" class="captcha-input" placeholder="Введите Captcha" id="captchaInput">
+                <img id="captchaImage" alt="Captcha" class="captcha-image">
+                <button class="refresh-btn">
+                    <!-- onclick="refreshCaptcha()" -->
+                    <svg width="16" height="16" fill="white" viewBox="0 0 16 16">
+                        <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                </button>
+                <button class="send-code-btn" onclick="register()" title="Выслать код подтверждения">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="registration-header">
+                <button class="back-btn" onclick="showLogin()">← Назад</button>
+                <button class="register-btn" id="registerBtn">Зарегистрировать</button>
+            </div>
+        </div>
+    </div>
+    <div id="serviceSelection" class="service-selection fullscreen">
+            <!-- Header -->
+         <header class="header">
+        <div class="header-content">
+            <div class="contract-dropdown" onclick="toggleContractDropdown()">
+                <span class="contract-text">Договор ЕН/ДО/БО-44/ 2306 от 06.06.2025</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 10L12 15L17 10H7Z" fill="#4B5563"/>
+                </svg>
+            </div>
+
+            <button class="new-contract-btn" onclick="createNewContract()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="desktop-only">Новый договор</span>
+                <span class="mobile-only">Новый</span>
+            </button>
+
+            <div class="user-section">
+                <span class="company-name">ООО "Некрил"</span>
+                <div class="header-icons">
+                    <button class="icon-btn" title="Уведомления">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5S10.5 3.17 10.5 4V4.68C7.63 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" title="Документы">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" title="Выход" onclick="logout()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                            <path d="M14.08 15.59L16.67 13H7V11H16.67L14.08 8.41L15.5 7L20.5 12L15.5 17L14.08 15.59Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <!-- <button class="back-btn" onclick="goBack()">
+            ← Назад
+        </button> -->
+
+        <div class="service-nav">
+            <button class="nav-btn active" onclick="selectTab('services')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                </svg>
+                <span>Заявка на доп. услуги</span>
+            </button>
+            <button class="nav-btn" onclick="selectTab('documents')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+                <span>Документооборот</span>
+            </button>
+            <button class="nav-btn" onclick="selectTab('payment')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M17,13H13V17H11V13H7V11H11V7H13V11H17V13Z"/>
+                </svg>
+                <span>Начисление оплаты</span>
+            </button>
+            <button class="nav-btn" onclick="selectTab('info')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                </svg>
+                <span>Информация о договоре</span>
+            </button>
+            <button class="nav-btn" onclick="selectTab('chat')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2Z"/>
+                </svg>
+                <span>Чат со специалистом</span>
+            </button>
+        </div>
+
+        <!-- Service Form -->
+        <div class="service-form-container fade-in">
+            <div class="form-section">
+                <label class="form-label">Выберите услугу</label>
+                <div class="service-dropdown-container">
+                    <div class="service-dropdown" onclick="toggleServiceDropdown()">
+                        <span>Вывоз строительного мусора</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M7 10L12 15L17 10H7Z" fill="#4B5563"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <label class="form-label">Место оказания услуги</label>
+                <div class="address-container">
+                    <input type="text" class="address-input" placeholder="Введите адрес" value="">
+                    <button class="map-btn" onclick="openMap()" title="Показать на карте">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Service List -->
+            <div class="service-list">
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.1s">
+                    Вывоз строительного мусора
+                </div>
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.2s">
+                    Вывоз крупногабаритного мусора
+                </div>
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.3s">
+                    Дополнительная уборка территории
+                </div>
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.4s">
+                    Мойка контейнерной площадки
+                </div>
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.5s">
+                    Предоставление дополнительных контейнеров
+                </div>
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.6s">
+                    Вывоз опасных отходов
+                </div>
+                <div class="service-item slide-in" onclick="selectService(this)" style="animation-delay: 0.7s">
+                    Консультационные услуги
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Service Selection -->
+
+
+    <!-- <script src="/main.js" onerror="console.error('Failed to load main.js')"></script> -->
+
+<script>
+  if (typeof window.login === 'undefined') {
+    console.warn('Main script not loaded, using fallback');
+    
+    window.showLogin = function() {
+      const container = document.querySelector('.container');
+      const serviceSelection = document.getElementById('serviceSelection');
+      
+      if (container) container.style.display = 'block';
+      if (serviceSelection) serviceSelection.style.display = 'none';
+      
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('registrationForm');
+      
+      if (loginForm) loginForm.style.display = 'block';
+      if (regForm) regForm.style.display = 'none';
+    };
+    
+    window.showRegistration = function() {
+      const container = document.querySelector('.container');
+      const serviceSelection = document.getElementById('serviceSelection');
+      
+      if (container) container.style.display = 'block';
+      if (serviceSelection) serviceSelection.style.display = 'none';
+      
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('registrationForm');
+      
+      if (loginForm) loginForm.style.display = 'none';
+      if (regForm) regForm.style.display = 'block';
+    };
+    
+    window.login = function() {
+      const container = document.querySelector('.container');
+      const serviceSelection = document.getElementById('serviceSelection');
+      
+      if (container) container.style.display = 'none';
+      if (serviceSelection) serviceSelection.style.display = 'block';
+    };
+    window.logout = function() {
+      document.querySelector('.container').style.display = 'block';
+      document.getElementById('serviceSelection').style.display = 'none';
+    };
+    
+    // Показываем форму входа по умолчанию
+    window.addEventListener('DOMContentLoaded', function() {
+      window.showLogin();
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm && loginForm.style.display !== 'none') {
+            login(); // Вызов функции входа
+            }
+        }
+        });
+        
+    });
+  }
+</script>
+</body>
+</html>

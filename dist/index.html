@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донснабкомплект</title>
+    
+<script defer src="main.js"></script></head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="loginForm" class="login-form">
+            <img src="./assets/logo.svg" alt="Логотип" class="logo">
+
+            <div class="login-title">Вход в систему</div>
+            
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="ИНН/e-mail/Номер телефона" id="loginInput">
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Пароль" id="passwordInput">
+            </div>
+            
+            <button class="login-btn" onclick="login()">Войти</button>
+            
+            <div class="links">
+                <span class="link" onclick="showRegistration()">Регистрация</span>
+                <span class="link" onclick="forgotPassword()">Забыли пароль</span>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registrationForm" class="registration-form">
+            
+            <img src="./assets/logo.svg" alt="Логотип" class="logo">
+            
+            <div class="login-title" style="color: #01AA2C;">Регистрация абонента ТКО</div>
+            
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Введите ИНН">
+            </div>
+            
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Название организации">
+                <small style="color: #DC2626; font-size: 12px;">Уточните название организации</small>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Введите КПП">
+            </div>
+            
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Введите email">
+            </div>
+            
+            <div class="form-group">
+                <input type="tel" class="form-input" placeholder="Введите номер телефона">
+            </div>
+            
+            <div class="captcha-container">
+                <input type="text" class="captcha-input" placeholder="Введите Captcha">
+                <div class="captcha-display" id="captchaDisplay">xqatwrefdsv</div>
+                <button class="refresh-btn" onclick="refreshCaptcha()">
+                    <svg width="16" height="16" fill="white" viewBox="0 0 16 16">
+                        <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                </button>
+                <button style="background: #A855F7; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer;">
+                    Выслать код подтверждения
+                </button>
+            </div>
+            <div class="registration-header">
+                <button class="back-btn" onclick="showLogin()">← Назад</button>
+                <button class="register-btn">Зарегистрировать</button>
+            </div>
+        </div>
+        <!-- Dashboard -->
+        <div id="dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <div class="contract-info">Договор ЕН/ДО/БО-44/ 2306 от 06.06.2025</div>
+                <div class="user-info">ООО "Некрил"</div>
+            </div>
+            
+            <div class="dashboard-buttons">
+                <button class="dashboard-btn" onclick="showServiceSelection()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                    Заявка на доп. услуги
+                </button>
+                
+                <button class="dashboard-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    Документооборот
+                </button>
+                
+                <button class="dashboard-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Начисление оплаты
+                </button>
+                
+                <button class="dashboard-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Информация о договора
+                </button>
+                
+                <button class="dashboard-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-6h11v6zm0-8H4V6h11v4zm5 8h-4V6h4v12z"/>
+                    </svg>
+                    Чат со специалистом
+                </button>
+            </div>
+        </div>
+
+        <!-- Service Selection -->
+        <div id="serviceSelection" class="service-selection">
+            
+            <div class="service-form">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 600;">Выберите услугу</label>
+                    <select class="service-select">
+                        <option>Вывоз строительно мусора</option>
+                        <option>Вывоз бытового мусора</option>
+                        <option>Утилизация техники</option>
+                        <option>Очистка территории</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 600;">Место оказания услуги</label>
+                    <input type="text" class="address-input" placeholder="Ввод адреса">
+                    <button style="background: #4B5563; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer;">📍</button>
+                </div>
+                <button class="back-btn" onclick="showDashboard()">← Назад</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

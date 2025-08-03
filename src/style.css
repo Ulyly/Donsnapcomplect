@@ -1,0 +1,832 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8B5CF6, #A855F7, #9333EA);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        /* Mobile-first подход */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #01AA2C, #01AA2C, #01AA2C);
+        }
+
+        .container > div {
+            display: none;
+        }
+
+        .container > div.active {
+            display: block;
+        }
+
+        .logo {
+            width: 70%;
+            max-width: 200px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .company-name {
+            color: #01AA2C;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .company-subtitle {
+            color: #01AA2C;
+            font-size: 11px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .login-title {
+            color: #4B5563;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #F9FAFB;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #01AA2C;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(1, 170, 44, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px 0;
+            background-color: #01AA2C;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            background-color: #018822;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(1, 170, 44, 0.3);
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .link {
+            color: #6B7280;
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+
+        .link:hover {
+            color: #01AA2C;
+        }
+
+        /* Группы для форм */
+        .inn-kpp-group,
+        .contact-group,
+        .password-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .inn-kpp-group .form-group {
+            margin-bottom: 0;
+        }
+
+        .inn-search-container {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        .inn-search-container .form-input {
+            flex: 1;
+        }
+
+        .search-btn {
+            padding: 0 16px;
+            background: #01AA2C;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            min-height: 50px;
+        }
+
+        .search-btn:hover {
+            background-color: #018822;
+        }
+
+        .search-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Сообщения */
+        #messagesContainer {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            margin: 0 0 12px 0;
+            border-radius: 8px;
+            border: 1px solid #ffcdd2;
+            font-size: 14px;
+        }
+
+        .success-message {
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 10px;
+            margin: 0 0 12px 0;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+            font-size: 14px;
+        }
+
+        /* Капча */
+        .captcha-container {
+            display: flex;
+            align-items: stretch;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .captcha-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            height: 40px;
+        }
+        .captcha-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .captcha-image {
+            height: 40px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+        }
+        /* .captcha-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            min-height: 48px;
+            box-sizing: border-box;
+        } */
+        .captcha-display {
+            background: #4B5563;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: center;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #captchaImage {
+            height: 100%;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            min-width: 100px;
+            object-fit: contain;
+        }
+        .register-btn {
+            width: 100%;
+            background-color: #01AA2C;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background-color: #018822;
+        }
+        .refresh-btn {
+            background: #01AA2C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-code-btn {
+            background-color: #01AA2C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .send-code-btn:hover {
+            background-color: #018822;
+        }
+
+        /* Для мобильных устройств можно добавить подсказку при наведении */
+        @media (hover: hover) {
+            .send-code-btn:hover::after {
+                content: "Выслать код подтверждения";
+                position: absolute;
+                background: #333;
+                color: white;
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-size: 12px;
+                white-space: nowrap;
+                transform: translateY(40px);
+            }
+        }
+
+        /* Кнопки навигации */
+        .registration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .back-btn {
+            min-width: 99px;
+            background: #6B7280;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #4B5563;
+        }
+
+        /* Дашборд */
+        .dashboard-header {
+            background: linear-gradient(135deg, #8B5CF6, #A855F7);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contract-info {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .user-info {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .dashboard-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-btn {
+            background: linear-gradient(135deg, #8B5CF6, #A855F7);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+        }
+
+        .dashboard-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        /* Выбор услуг */
+        .service-form {
+            background: #F9FAFB;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #E5E7EB;
+        }
+
+        .service-select,
+        .address-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .address-row {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        .address-input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .location-btn {
+            background: #4B5563;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            min-width: 48px;
+        }
+
+        /* Маленькие подсказки */
+        small {
+            color: #DC2626;
+            font-size: 12px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        #passwordError {
+            display: none;
+        }
+
+        /* Tablet styles - от 768px */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                padding: 30px;
+                border-radius: 20px;
+            }
+
+            .logo {
+                width: 65%;
+                margin-bottom: 25px;
+            }
+
+            .company-name {
+                font-size: 26px;
+                margin-bottom: 8px;
+            }
+
+            .company-subtitle {
+                font-size: 12px;
+                margin-bottom: 30px;
+            }
+
+            .login-title {
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-input {
+                padding: 15px 20px;
+                border-radius: 12px;
+            }
+
+            .login-btn {
+                width: 60%;
+                margin: 0 auto 25px;
+                display: block;
+                padding: 14px 0;
+                border-radius: 12px;
+            }
+
+            .inn-kpp-group,
+            .contact-group,
+            .password-group {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .inn-kpp-group .form-group,
+            .contact-group .form-group,
+            .password-group .form-group {
+                flex: 1;
+            }
+
+            .captcha-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .captcha-input {
+                width: 120px;
+                flex: none;
+            }
+
+            .register-btn {
+                width: auto;
+                padding: 12px 24px;
+            }
+
+            .dashboard-buttons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .dashboard-btn {
+                padding: 18px;
+            }
+
+            .address-row {
+                gap: 10px;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .captcha-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .captcha-input {
+                width: 140px;
+                flex: none;
+                padding: 12px 16px;
+            }
+            
+            .captcha-display,
+            #captchaImage {
+                min-width: 120px;
+                padding: 0;
+            }
+            
+            .refresh-btn {
+                width: 26px;
+                height: 26px;
+            }
+        }
+        /* Desktop styles - от 1024px */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            .logo {
+                width: 60%;
+                margin-bottom: 30px;
+            }
+
+            .company-name {
+                font-size: 28px;
+            }
+
+            .login-btn {
+                width: 50%;
+            }
+
+            .dashboard-buttons {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .dashboard-btn {
+                padding: 20px;
+                font-size: 15px;
+            }
+
+            .dashboard-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .service-form {
+                padding: 30px;
+            }
+        }
+        .captcha-container {
+            flex-direction: row;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: nowrap;
+        }
+        
+        .captcha-input {
+            width: 150px;
+            flex: none;
+            padding: 12px 16px;
+        }
+        
+        .captcha-display,
+        #captchaImage {
+            min-width: 120px;
+            padding: 0;
+        }
+                /* Стили для поиска по ИНН на мобильных устройствах */
+        @media (max-width: 1024px) {
+            .search-text {
+                display: none;
+            }
+            
+            .search-icon {
+                display: inline-block;
+            }
+            
+            .inn-kpp-group .form-input {
+                padding-right: 50px !important;
+            }
+        }
+
+        /* Стили для десктопов */
+        @media (min-width: 1025px) {
+            .search-icon {
+                display: none;
+            }
+            
+            .search-text {
+                display: inline-block;
+            }
+            
+            .inn-kpp-group .form-group {
+                display: flex;
+                gap: 10px;
+            }
+            
+            .inn-kpp-group .form-input {
+                padding-right: 16px !important;
+            }
+            
+            .inn-kpp-group .search-btn {
+                position: static !important;
+                transform: none !important;
+                background: #01AA2C !important;
+                color: white !important;
+                border-radius: 8px;
+                padding: 0 15px !important;
+                font-size: 14px !important;
+            }
+        }
+        /* Large desktop - от 1440px */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 800px;
+            }
+
+            .dashboard-buttons {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) and (max-width: 1023px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                padding: 15px;
+                margin: 5px auto;
+            }
+            
+            .logo {
+                width: 50%;
+                margin-bottom: 15px;
+            }
+            
+            .login-title {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            .captcha-container {
+                flex-direction: row;
+                gap: 10px;
+                margin: 10px 0;
+            }
+            
+            .captcha-input {
+                width: 120px;
+                flex: none;
+                min-height: 40px;
+                padding: 8px 12px;
+            }
+            
+            .captcha-display,
+            #captchaImage {
+                min-width: 90px;
+                /* min-height: 40px; */
+                padding: 0;
+            }
+            
+            .refresh-btn {
+                width: 26px;
+                height: 26px;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .form-input {
+                border-width: 3px;
+            }
+            
+            .form-input:focus {
+                box-shadow: 0 0 0 4px rgba(1, 170, 44, 0.3);
+            }
+        }
+
+        /* Utilities for hiding/showing */
+        .login-form,
+        .registration-form,
+        .dashboard,
+        .service-selection {
+            display: none;
+        }
+
+        .login-form.active,
+        .registration-form.active,
+        .dashboard.active,
+        .service-selection.active {
+            display: block;
+        }
+        @media (max-width: 360px) {
+            .captcha-container {
+                gap: 8px;
+            }
+            
+            .captcha-row {
+                gap: 4px;
+            }
+            
+            .captcha-display,
+            #captchaImage {
+                min-width: 70px;
+                font-size: 12px;
+                padding: 0;
+            }
+            
+            .refresh-btn {
+                width: 26px;
+                height: 26px;
+            }
+            
+            .refresh-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            .captcha-container {
+                gap: 10px;
+            }
+            
+            .captcha-row {
+                gap: 6px;
+            }
+            
+            .captcha-input {
+                padding: 10px 12px;
+                font-size: 16px;
+                min-height: 44px;
+            }
+            
+            .captcha-display,
+            #captchaImage {
+                min-width: 80px;
+                /* min-height: 44px; */
+                padding: 0;
+            }
+            
+            .refresh-btn {
+                width: 26px;
+                height: 26px;
+            }
+        }
